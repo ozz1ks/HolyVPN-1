@@ -118,7 +118,7 @@
                 const currentPhrase = phrases[i % phrases.length];
                 const currentText = isDeleting ? currentPhrase.substring(0, j--) + "_" : currentPhrase.substring(0, j++);
 
-                // Добавляем эффект матрицы при стирании символа "_"
+                
                 if (isDeleting && j <= 0) {
                     typingElement.innerText = currentText.split('').map(() => (Math.random() > 0.5 ? '0' : '1')).join('');
                 } else {
@@ -139,9 +139,9 @@
             const joinLink = document.getElementById('click-to-join');
             if (joinLink) {
                 joinLink.style.position = 'absolute';
-                joinLink.style.top = 'calc(50% + 40px)'; // Размещаем кнопку ниже центрального текста на фиксированное расстояние
+                joinLink.style.top = 'calc(50% + (-50px))'; 
                 joinLink.style.left = '50%';
-                joinLink.style.transform = 'translateX(-50%)'; // Центрируем кнопку по горизонтали
+                joinLink.style.transform = 'translateX(-50%)'; 
                 joinLink.style.display = 'inline-block';
                 joinLink.addEventListener('click', () => {
                     window.open('https://t.me/team_holy', '_blank');
@@ -163,7 +163,7 @@
                 }
 
                 function drawStars() {
-                    svg.innerHTML = ""; // Очищаем предыдущие звезды
+                    svg.innerHTML = ""; 
                     let n1 = (ViewportX >= 1000 && ViewportY >= 600) ? 200 : 100;
 
                     for (let i = 0, stars = 150; i < stars; i++) {
@@ -210,7 +210,43 @@
                     if (isMouseMoving) {
                         const stars = svg.querySelectorAll('circle');
                         stars.forEach((star, index) => {
-                            if (index % 10 === 0) { // Обновляем только каждую десятую звезду
+                            if (index % 10 === 0) { 
                                 const speed = parseFloat(star.getAttribute('r')) * 0.02;
                                 const offsetX = (mouseX - window.innerWidth / 2) * speed;
-                                const offsetY = (mouseY - window.innerHeight / 2) *
+                                const offsetY = (mouseY - window.innerHeight / 2) * speed;
+                                star.setAttribute('transform', `translate(${offsetX}, ${offsetY})`);
+                            }
+                        });
+                        isMouseMoving = false; 
+                    }
+                    requestAnimationFrame(animateStars);
+                }
+
+                animateStars();
+            })();
+        });
+    </script>
+</head>
+<body>
+    <div id="typing-container">
+        <h1 id="typing-effect" style="min-height: 1em;">&nbsp;</h1> 
+    </div>
+    <svg id="svg" width="100%" height="100vh">
+        <defs>
+            <filter id="shadow" width="200" height="200">
+                <feOffset result="offOut" in="SourceGraphic" dx="1" dy="1"/>
+                <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3"/>
+                <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <div id="footer-container">
+        <p id="footer-text">Protect Your Privacy with Holy VPN</p>
+        <div id="telegram-link">
+            <a href="https://t.me/team_holy" target="_blank">Join our Telegram Channel for further purchases</a>
+        </div>
+    </div>
+    <div id="click-to-join" class="join-link">Click to join</div>
+</body>
+</html>
