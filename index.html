@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-    <link rel="manifest" href="site.webmanifest">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holy VPN</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
     <style>
         html {
             overflow: hidden;
@@ -101,139 +99,131 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const phrases = [
-                "Holy VPN", 
-                "Our Religion - Freedom and lack of censorship.", 
-                "Your Privacy Matters.",
-                "Shield your data, embrace freedom.",
-                "No borders, no restrictions, just privacy.",
-                "Browse the web, unchained.",
-                "Empowering privacy for the connected world.",
-                "In anonymity we trust.",
-                "Freedom is not a luxury – it’s your right.",
-                "Unlock the world, one click at a time.",
-                "Stay hidden, stay safe.",
-                "Explore without limits. Surf without fear."
-            ];
-            const typingElement = document.getElementById('typing-effect');
-            let i = 0, j = 0, isDeleting = false;
+        const phrases = [
+            "Holy VPN", 
+            "Our Religion - Freedom and lack of censorship.", 
+            "Your Privacy Matters."
+        ];
+        const typingElement = document.getElementById('typing-effect');
+        let i = 0, j = 0, isDeleting = false;
 
-            function type() {
-                const currentPhrase = phrases[i % phrases.length];
-                const currentText = isDeleting ? currentPhrase.substring(0, j--) + "_" : currentPhrase.substring(0, j++);
+        function type() {
+            const currentPhrase = phrases[i % phrases.length];
+            const currentText = isDeleting ? currentPhrase.substring(0, j--) + " ▌" : currentPhrase.substring(0, j++);
 
-                // Добавляем эффект матрицы при стирании символа "_"
-                if (isDeleting && j <= 0) {
-                    typingElement.innerText = currentText.split('').map(() => (Math.random() > 0.5 ? '0' : '1')).join('');
-                } else {
-                    typingElement.innerText = currentText;
-                }
-
-                if (!isDeleting && j === currentPhrase.length) {
-                    setTimeout(() => isDeleting = true, 2000);
-                } else if (isDeleting && j === 0) {
-                    isDeleting = false;
-                    i++;
-                }
-                const speed = isDeleting ? 40 : 50;
-                setTimeout(type, speed);
-            }
-            type();
-
-            const joinLink = document.getElementById('click-to-join');
-            if (joinLink) {
-                joinLink.style.position = 'absolute';
-                joinLink.style.top = 'calc(50% + (-50px))'; 
-                joinLink.style.left = '50%';
-                joinLink.style.transform = 'translateX(-50%)'; 
-                joinLink.style.display = 'inline-block';
-                joinLink.addEventListener('click', () => {
-                    window.open('https://t.me/team_holy', '_blank');
-                });
+            if (isDeleting && j <= 0) {
+                typingElement.innerText = currentText.split('').map(() => (Math.random() > 0.5 ? '' : '')).join('');
+            } else {
+                typingElement.innerText = currentText;
             }
 
-            (function() {
-                let svgNS = "http://www.w3.org/2000/svg",
-                    svg = document.querySelector("#svg"),
-                    ViewportX = window.innerWidth,
-                    ViewportY = window.innerHeight;
+            if (!isDeleting && j === currentPhrase.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i++;
+            }
+            const speed = isDeleting ? 40 : 50;
+            setTimeout(type, speed);
+        }
+        type();
 
-                function setCoords(circle, rX, rY, fill, isRandom) {
-                    circle.setAttribute("cx", rX);
-                    circle.setAttribute("cy", rY);
-                    circle.setAttribute("fill", fill);
-                    circle.setAttribute("r", isRandom);
-                    svg.appendChild(circle);
+        const joinLink = document.getElementById('click-to-join');
+        if (joinLink) {
+            joinLink.style.position = 'absolute';
+            joinLink.style.top = 'calc(50% + (-50px))';
+            joinLink.style.left = '50%';
+            joinLink.style.transform = 'translateX(-50%)'; 
+            joinLink.style.display = 'inline-block';
+            joinLink.addEventListener('click', () => {
+                window.open('https://t.me/team_holy', '_blank');
+            });
+        }
+
+        (function() {
+            let svgNS = "http://www.w3.org/2000/svg",
+                svg = document.querySelector("#svg"),
+                ViewportX = window.innerWidth,
+                ViewportY = window.innerHeight;
+
+            function setCoords(circle, rX, rY, fill, isRandom) {
+                circle.setAttribute("cx", rX);
+                circle.setAttribute("cy", rY);
+                circle.setAttribute("fill", fill);
+                circle.setAttribute("r", isRandom);
+                svg.appendChild(circle);
+            }
+
+            function drawStars() {
+                svg.innerHTML = ""; 
+                let n1 = (ViewportX >= 1000 && ViewportY >= 600) ? 200 : 100;
+
+                for (let i = 0, stars = 150; i < stars; i++) {
+                    let circle = document.createElementNS(svgNS, "circle");
+                    let randomX = +(Math.random() * ViewportX).toFixed(2);
+                    let randomY = +(Math.random() * ViewportY).toFixed(2);
+                    let randomR = +(Math.random() * 2.5).toFixed(2);
+                    setCoords(circle, randomX, randomY, "#fff", randomR);
                 }
 
-                function drawStars() {
-                    svg.innerHTML = ""; // Очищаем предыдущие звезды
-                    let n1 = (ViewportX >= 1000 && ViewportY >= 600) ? 200 : 100;
-
-                    for (let i = 0, stars = 150; i < stars; i++) {
-                        let circle = document.createElementNS(svgNS, "circle");
-                        let randomX = +(Math.random() * ViewportX).toFixed(2);
-                        let randomY = +(Math.random() * ViewportY).toFixed(2);
-                        let randomR = +(Math.random() * 2.5).toFixed(2);
-                        setCoords(circle, randomX, randomY, "#fff", randomR);
-                    }
-
-                    for (let i = 0, animStars = n1; i < animStars; i++) {
-                        let circle = document.createElementNS(svgNS, "circle");
-                        let randomX = +(Math.random() * ViewportX).toFixed(2);
-                        let randomY = +(Math.random() * ViewportY).toFixed(2);
-                        let randomDelay = +(Math.random() * (-3 - 1.5) + -3).toFixed(2);
-                        circle.classList.add("animate");
-                        circle.style.animationDelay = randomDelay + "s";
-                        setCoords(circle, randomX, randomY, "#fff", 2);
-                    }
+                for (let i = 0, animStars = n1; i < animStars; i++) {
+                    let circle = document.createElementNS(svgNS, "circle");
+                    let randomX = +(Math.random() * ViewportX).toFixed(2);
+                    let randomY = +(Math.random() * ViewportY).toFixed(2);
+                    let randomDelay = +(Math.random() * (-4 - 2.5) + -4).toFixed(2);
+                    circle.classList.add("animate");
+                    circle.style.animationDelay = randomDelay + "s";
+                    setCoords(circle, randomX, randomY, "#fff", 2);
                 }
+            }
 
-                function setCanvasSize() {
-                    ViewportX = window.innerWidth;
-                    ViewportY = window.innerHeight;
-                }
+            function setCanvasSize() {
+                ViewportX = window.innerWidth;
+                ViewportY = window.innerHeight;
+            }
 
+            setCanvasSize();
+            window.addEventListener('resize', () => {
                 setCanvasSize();
-                window.addEventListener('resize', () => {
-                    setCanvasSize();
-                    drawStars();
-                });
-
                 drawStars();
+            });
 
-                let mouseX = 0, mouseY = 0, isMouseMoving = false;
+            drawStars();
 
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    isMouseMoving = true;
-                });
+            let mouseX = 0, mouseY = 0, isMouseMoving = false;
 
-                function animateStars() {
-                    if (isMouseMoving) {
-                        const stars = svg.querySelectorAll('circle');
-                        stars.forEach((star, index) => {
-                            if (index % 10 === 0) { 
-                                const speed = parseFloat(star.getAttribute('r')) * 0.02;
-                                const offsetX = (mouseX - window.innerWidth / 2) * speed;
-                                const offsetY = (mouseY - window.innerHeight / 2) * speed;
-                                star.setAttribute('transform', `translate(${offsetX}, ${offsetY})`);
-                            }
-                        });
-                        isMouseMoving = false; 
-                    }
-                    requestAnimationFrame(animateStars);
+            window.addEventListener('mousemove', (e) => {
+                mouseX = -e.clientX;
+                mouseY = -e.clientY;
+                isMouseMoving = true;
+            });
+
+            function animateStars() {
+                if (isMouseMoving) {
+                    const stars = svg.querySelectorAll('circle');
+                    stars.forEach((star, index) => {
+                        if (index % 10 === 0) { 
+                            const speed = parseFloat(star.getAttribute('r')) * 0.02;
+                            const offsetX = (mouseX - window.innerWidth / 2) * speed;
+                            const offsetY = (mouseY - window.innerHeight / 2) * speed;
+                            star.setAttribute('transform', `translate(${offsetX}, ${offsetY})`);
+                        }
+                    });
+                    isMouseMoving = false; 
                 }
+                requestAnimationFrame(animateStars);
+            }
 
-                animateStars();
-            })();
-        });
+            animateStars();
+        })();
+    });
     </script>
 </head>
 <body>
     <div id="typing-container">
-        <h1 id="typing-effect" style="min-height: 1em;">&nbsp;</h1> 
+        <h1 id="typing-effect"></h1>
+    </div>
+    <div id="click-to-join" class="join-link">Click to join</div>
     <svg id="svg" width="100%" height="100vh">
         <defs>
             <filter id="shadow" width="200" height="200">
@@ -250,6 +240,5 @@
             <a href="https://t.me/team_holy" target="_blank">Join our Telegram Channel for further purchases</a>
         </div>
     </div>
-    <div id="click-to-join" class="join-link">Click to join</div>
 </body>
 </html>
