@@ -118,7 +118,7 @@
                 const currentPhrase = phrases[i % phrases.length];
                 const currentText = isDeleting ? currentPhrase.substring(0, j--) + "_" : currentPhrase.substring(0, j++);
 
-                
+                // Добавляем эффект матрицы при стирании символа "_"
                 if (isDeleting && j <= 0) {
                     typingElement.innerText = currentText.split('').map(() => (Math.random() > 0.5 ? '0' : '1')).join('');
                 } else {
@@ -163,7 +163,7 @@
                 }
 
                 function drawStars() {
-                    svg.innerHTML = ""; 
+                    svg.innerHTML = ""; // Очищаем предыдущие звезды
                     let n1 = (ViewportX >= 1000 && ViewportY >= 600) ? 200 : 100;
 
                     for (let i = 0, stars = 150; i < stars; i++) {
